@@ -2,21 +2,30 @@
 <div th:fragment="conteudo">
     <form action="/novo_apto" method="post" th:object="${apartamento}">
         <div class="mb-3">
-            <label for="nome" class="form-label">Número da porta</label>
+            <label for="nroPorta" class="form-label">Número da porta</label>
             <input type="text" class="form-control" th:field="*{nroPorta}">
         </div>
         <div class="mb-3">
-            <label for="endereco" class="form-label">Quantidade de quartos</label>
+            <label for="quartos" class="form-label">Quantidade de quartos</label>
             <input type="text" class="form-control" th:field="*{quartos}">
         </div>
-        <div class="mb-3">
-            <label for="descricao" class="form-label">Tipo</label>
-            <select th:field="*{tipo}" class="form-control">
-                <option value="proprietario">Proprietário</option>
-                <option value="inquilino">Inquilino</option>
-                <option value="vazio">Vazio</option>
+        <div>
+            <label for="prop" class="form-label">Proprietário</label>
+            <select th:field="*{proprietario.id}" class="form-control">
+                <option th:each="p : ${proprietario}" th:value="${p.id}" th:text="${p.nome}"
+                    th:selected="*{proprietario.id}==${p.id}">
+                </option>
             </select>
         </div>
+        <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo</label>
+            <select th:field="*{tipo}" class="form-control">
+                <option th:value="proprietario" th:text="Proprietário"></option>
+                <option th:value="inquilino" th:text="Inquilino"></option>
+                <option th:value="vazio" th:text="Vazio"></option>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Gravar</button>
     </form>
 </div>
